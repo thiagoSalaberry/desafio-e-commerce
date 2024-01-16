@@ -1,13 +1,24 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import methods from "micro-method-router";
-export default methods ({
-    async get(req:NextApiRequest, res:NextApiResponse) {
-        const token = req.headers.authorization.split(" ")[1];
-        res.json({token, user: {}});
-    },
-    async patch(req:NextApiRequest, res:NextApiResponse) {
-        const token = req.headers.authorization.split(" ")[1];
-        const { userData } = req.body;
-        res.json({token, updatedUser: userData});
+import { authMiddleware } from "../../../lib/authMiddleware";
+import { User } from "../../../model/user";
+import { updateUserData } from "../../../controllers/authControllers";
+async function getRequest(req:NextApiRequest, res:NextApiResponse, verifiedToken) {
+    const newUser:User = new User(verifiedToken.userId);
+    await newUser.pull();
+    return newUser.data;
+};
+async function patchRequest(req:NextApiRequest, res:NextApiResponse, verifiedToken) {
+    const { dataToUpdate } = req.body;
+    const updatedUser = await updateUserData(verifiedToken.userId, dataToUpdate);
+    return updatedUser.data;
+};
+async function handler(req:NextApiRequest, res:NextApiResponse, verifiedToken) {
+    if(req.method == "GET") {
+        const userData = await getRequest(req, res, verifiedToken);
+        res.status(200).json({userData})
+    } else if(req.method == "PATCH") {
+        const updatedUserData = await patchRequest(req, res, verifiedToken);
+        res.status(200).json({updatedUserData});
     }
-})
+};
+export default authMiddleware(handler);

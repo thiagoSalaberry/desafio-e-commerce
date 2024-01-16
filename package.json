@@ -4,12 +4,18 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "@getbrevo/brevo": "^2.0.0-beta.4",
+    "airtable": "^0.12.2",
+    "algoliasearch": "^4.22.1",
+    "date-fns": "^3.2.0",
     "firebase-admin": "^12.0.0",
     "jsonwebtoken": "^9.0.2",
     "micro-method-router": "^0.1.0",
     "next": "^14.0.4",
+    "parse-bearer-token": "^1.0.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "sib-api-v3-typescript": "^2.2.2"
   },
   "scripts": {
     "dev": "next dev",
