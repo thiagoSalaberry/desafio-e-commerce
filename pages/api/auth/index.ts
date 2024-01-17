@@ -13,11 +13,11 @@ import methods from "micro-method-router";
 }
 
 const handler = methods({
-    post: auth
-});
-
-const corsHandler = async (req:NextApiRequest, res:NextApiResponse) => {
-    return await corsMiddleware(req, res, handler)
-};
-
-export default corsHandler;
+    post: auth,
+  });
+  
+  const corsHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+    return await corsMiddleware(req, res, handler);
+  };
+  
+  export default corsHandler;
