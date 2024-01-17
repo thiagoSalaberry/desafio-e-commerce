@@ -13,6 +13,7 @@ export default async function(req:NextApiRequest, res:NextApiResponse) {
             {[`POST/order?productId=0`]: "Crear una orden de compra en la base de datos sobre un producto específico"},
             {[`GET/me/orders`]: "Obtener todas mis órdenes de compra"},
             {[`GET/me/:orderId`]: "Obtener una de mis órdenes de compra por ID"},
+            {[`POST/ipn/mercadopago?id=:id&topic=merchant_order`]: "Notificar que la compra fue pagada con éxito"},
         ]
     })
 }

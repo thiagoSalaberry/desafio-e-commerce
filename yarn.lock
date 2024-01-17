@@ -1892,6 +1892,14 @@ lru-memoizer@^2.2.0:
     lodash.clonedeep "^4.5.0"
     lru-cache "~4.0.0"
 
+mercadopago@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/mercadopago/-/mercadopago-2.0.6.tgz#fab1e3a910c9c9c7dc7dfdf763c9611b71646efc"
+  integrity sha512-+lFz8ZtsGrMMfsFaQWhCcDk6I7NgvwyALLKbtPNF6Z7fgaao1yHSc+22KppKZyAqQronWAOHQ+mOhWQkO1/mHQ==
+  dependencies:
+    node-fetch "^2.6.12"
+    uuid "^9.0.0"
+
 micro-method-router@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/micro-method-router/-/micro-method-router-0.1.0.tgz#d51d905e8117ce219e847bee505721a46a30ab2f"
@@ -1982,7 +1990,7 @@ next@^14.0.4:
     "@next/swc-win32-ia32-msvc" "14.0.4"
     "@next/swc-win32-x64-msvc" "14.0.4"
 
-node-fetch@^2.6.1, node-fetch@^2.6.7, node-fetch@^2.6.9:
+node-fetch@^2.6.1, node-fetch@^2.6.12, node-fetch@^2.6.7, node-fetch@^2.6.9:
   version "2.7.0"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.7.0.tgz#d0f0fa6e3e2dc1d27efcd8ad99d550bda94d187d"
   integrity sha512-c4FRfUm/dbcWZ7U+1Wq0AwCyFL+3nt2bEw05wfxSz+DWpWsitgmSgYmy2dQdWyKC1694ELPqMs/YzUSNozLt8A==

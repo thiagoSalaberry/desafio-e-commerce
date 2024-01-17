@@ -1,7 +1,11 @@
 import { NextApiRequest, NextApiResponse } from "next";
-//Este endpoint se encarga de recibir un token y un orderId y devolver la orden de compra
-export default async function(req:NextApiRequest, res:NextApiResponse) {
-    const token = req.headers.authorization.split(" ")[1];
+import { authMiddleware } from "../../../../lib/authMiddleware";
+import { getOrder } from "../../../../controllers/orderController";
+//Este endpoint se encarga de recibir un token y devolver todas mis órdenes de compra
+async function handler(req:NextApiRequest, res:NextApiResponse, verifiedToken) {
     const { orderId } = req.query;
-    res.json({token, [`order_${orderId}`]: {}});
-}
+    const order = await getOrder(verifiedToken.userId, String(orderId));
+    res.json({order});
+};
+
+export default authMiddleware(handler);

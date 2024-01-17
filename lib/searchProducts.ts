@@ -27,17 +27,3 @@ export async function searchProducts(q: string) {
     .filter((prod: any) => prod.stock == "true");
   return responseProducts;
 };
-export async function searchProductById(productId: string) {
-  const searchedProduct: any = (await productsIndex.search(productId as string))
-    .hits[0];
-  return {
-    productId: searchedProduct.productId,
-    title: searchedProduct.title,
-    description: searchedProduct.description,
-    unit_price: searchedProduct.unit_price,
-    stock: searchedProduct.stock,
-    category: searchedProduct.category,
-    images: searchedProduct.images,
-    tags: searchedProduct.tags,
-  };
-};

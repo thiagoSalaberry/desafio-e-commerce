@@ -8,7 +8,7 @@ export default async function(req:NextApiRequest, res:NextApiResponse) {
     const { offset, limit } = getLimitAndOffset(req, 10, foundProducts.length);
     if(foundProducts.length == 0) res.status(404).json({message:"El producto que estás buscando no existe"});
     res.status(200).json({
-        searchedProduct: q,
+        searchedProduct: q ? q : "Todos los productos",
         results: foundProducts.slice(offset, limit + offset),
         pagination: {
             offset,

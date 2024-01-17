@@ -1,5 +1,5 @@
-import { OrderProps } from "./order";
 import { firestore } from "../lib/firestore";
+
 export type UserProps = {
     id?: string;
     first_name?: string;
@@ -11,7 +11,7 @@ export type UserProps = {
         zip_code: number,
     },
     phone_number?: number;
-    orders?: OrderProps[] | [];
+    orders: any[];
 };
 
 const usersCollection = firestore.collection("users");
@@ -36,5 +36,8 @@ export class User {
         const newUser:User = new User(addNewRecord.id);
         newUser.data = userProps;
         return newUser;
+    };
+    addOrder(order) {
+        this.data.orders.push(order);
     }
 }

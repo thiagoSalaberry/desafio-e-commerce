@@ -1,7 +1,7 @@
 import { Auth } from "../model/auth";
 import { User } from "../model/user";
 import { addMinutes } from "date-fns";
-import { sendEmail } from "../lib/brevo";
+import { sendCodeEmail } from "../lib/brevo";
 import { generateToken } from "../lib/jwt";
 export async function findOrCreateAuth(email:string) {
     const cleanEmail = email.trim().toLowerCase();
@@ -9,7 +9,7 @@ export async function findOrCreateAuth(email:string) {
     if(auth) {
         return auth;
     } else {
-        const newUser:User = await User.createNewUser({email: cleanEmail});
+        const newUser:User = await User.createNewUser({email: cleanEmail, orders: []});
         const newAuth:Auth = await Auth.createNewAuth({
             userId: newUser.id,
             email: cleanEmail,
@@ -31,7 +31,7 @@ export async function sendCode(email:string) {
     newAuth.data.code = code;
     newAuth.data.expiresAt = twentyMinutesFromNow;
     await newAuth.push();
-    await sendEmail(cleanEmail, code);
+    await sendCodeEmail(cleanEmail, code);
     return newAuth;
 };
 
