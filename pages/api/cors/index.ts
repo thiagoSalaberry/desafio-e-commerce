@@ -1,5 +1,4 @@
 import {NextApiRequest, NextApiResponse} from "next";
-import { sendCode } from "../../../controllers/authControllers";
 // import Cors from "cors";
 // const cors = Cors({
 //     origin: "*",
@@ -24,10 +23,9 @@ import { sendCode } from "../../../controllers/authControllers";
 import {runMiddleware} from "../../../lib/corsMiddleware";
 export default async function(req:NextApiRequest, res:NextApiResponse) {
     await runMiddleware(req, res);
-    const { email } = req.body;
-    // if (!email) res.status(400).json({message: "Debes ingresar un email para poder ingresar."});
-    // await sendCode(email);
     res.json({
-        message: `Un código de ingreso fue enviado a ${email}.`,
+        message: "Este es un endpoint protegido por CORS",
+        method: req.method,
+        body: req.body
     });
 }
