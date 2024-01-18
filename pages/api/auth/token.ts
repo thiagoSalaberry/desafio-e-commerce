@@ -9,7 +9,7 @@ const cors = Cors({
 //Este endpoint se encarga de recibir un email y un code desde el body
 //De ser correctos, devuelve un token e invalida el código
 export default async function handler(req:NextApiRequest, res:NextApiResponse) {
-    await runMiddleware(req, res, cors);
+    await runMiddleware(req, res);
     const { email, code } = req.body;
     if (!email || !code) res.status(400).json({message: "Debes ingresar un email y un código para poder ingresar."});
     const token = await checkEmailAndCode(email, code);
