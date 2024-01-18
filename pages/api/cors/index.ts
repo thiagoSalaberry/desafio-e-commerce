@@ -25,8 +25,8 @@ import {runMiddleware} from "../../../lib/corsMiddleware";
 export default async function(req:NextApiRequest, res:NextApiResponse) {
     await runMiddleware(req, res);
     const { email } = req.body;
-    if (!email) res.status(400).json({message: "Debes ingresar un email para poder ingresar."});
-    await sendCode(email);
+    // if (!email) res.status(400).json({message: "Debes ingresar un email para poder ingresar."});
+    // await sendCode(email);
     res.json({
         message: `Un código de ingreso fue enviado a ${email}.`,
     });
