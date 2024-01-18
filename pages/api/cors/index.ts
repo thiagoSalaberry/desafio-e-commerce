@@ -20,7 +20,7 @@ import {NextApiRequest, NextApiResponse} from "next";
 //         })
 //     })
 // }
-import runMiddleware from "../../../lib/corsMiddleware";
+import {runMiddleware} from "../../../lib/corsMiddleware";
 export default async function(req:NextApiRequest, res:NextApiResponse) {
     await runMiddleware(req, res);
     res.json({
