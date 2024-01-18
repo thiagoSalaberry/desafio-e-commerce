@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { checkEmailAndCode } from "../../../controllers/authControllers";
 import methods from "micro-method-router";
-import { runMiddleware } from "../corsMiddleware";
+import { runMiddleware } from "../../../lib/corsMiddleware";
 import Cors from "cors";
 const cors = Cors({
     methods: ["GET", "POST", "PATCH"]
