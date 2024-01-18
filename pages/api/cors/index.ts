@@ -14,7 +14,7 @@ function runMiddleware(req:NextApiRequest, res:NextApiResponse, fn:Function) {
     })
 }
 export default async function handler(req:NextApiRequest, res:NextApiResponse) {
-    await runMiddleware(req, res, cors);
+    // await runMiddleware(req, res, cors);
     res.json({
         message: "Este es un endpoint protegido por CORS",
         method: req.method
