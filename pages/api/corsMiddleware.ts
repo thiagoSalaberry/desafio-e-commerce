@@ -8,7 +8,7 @@ const cors = Cors({
   optionsSuccessStatus: 204
 });
 
-function runMiddleware(req:NextApiRequest, res:NextApiResponse) {
+export default function runMiddleware(req:NextApiRequest, res:NextApiResponse) {
   return new Promise((resolve, reject) => {
     cors(req, res, (result:any) => {
       if (result instanceof Error) {
@@ -21,5 +21,5 @@ function runMiddleware(req:NextApiRequest, res:NextApiResponse) {
   })
 }
 
-export default runMiddleware;
+ 
 
