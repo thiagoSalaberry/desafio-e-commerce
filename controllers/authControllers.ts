@@ -24,8 +24,7 @@ export async function findOrCreateAuth(email: string) {
 }
 
 export async function sendCode(email: string) {
-  const cleanEmail: string = email.toLowerCase();
-  const auth: Auth = await findOrCreateAuth(cleanEmail);
+  const auth: Auth = await findOrCreateAuth(email);
   const code: number = Math.ceil(Math.random() * 100000);
   const now: Date = new Date();
   const twentyMinutesFromNow: Date = addMinutes(now, 20);
@@ -34,7 +33,7 @@ export async function sendCode(email: string) {
   newAuth.data.code = code;
   newAuth.data.expiresAt = twentyMinutesFromNow;
   await newAuth.push();
-  await sendCodeEmail(cleanEmail, code);
+  await sendCodeEmail(email, code);
   return newAuth;
 }
 
