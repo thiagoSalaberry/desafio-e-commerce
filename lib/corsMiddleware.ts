@@ -12,7 +12,7 @@ export function runMiddleware(req: NextApiRequest, res: NextApiResponse) {
   return new Promise((resolve, reject) => {
     cors(req, res, (result: any) => {
       if (result instanceof Error) {
-        console.log("NO pasó el test de cors");
+        console.log("NO pasó el test de cors", result);
         return reject(result);
       }
       console.log("Pasó el test de cors", result);
