@@ -3,7 +3,7 @@ import Cors from "cors";
 
 const cors = Cors({
   origin: "*",
-  methods: ["POST", "GET", "PATCH"],
+  methods: ["GET", "POST", "PATCH", "DELETE", "PUT", "OPTIONS", "HEAD"],
   preflightContinue: false,
   optionsSuccessStatus: 204,
 });
