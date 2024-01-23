@@ -13,9 +13,7 @@ import { runMiddleware } from "../../../lib/corsMiddleware";
 export default async function auth(req: NextApiRequest, res: NextApiResponse) {
   //   console.log("arranca el endpoint");
   const { email } = req.body;
-  console.log(email);
   await runMiddleware(req, res);
-  //   console.log("supuestamente pasó el cors middleware");
   if (!email) {
     res
       .status(400)
