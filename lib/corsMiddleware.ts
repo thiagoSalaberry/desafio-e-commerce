@@ -10,7 +10,7 @@ const cors = Cors({
 
 export function runMiddleware(req: NextApiRequest, res: NextApiResponse) {
   return new Promise((resolve, reject) => {
-    cors(req, res, (result: any) => {
+    cors(req, res, (result) => {
       if (result instanceof Error) {
         console.log("NO pasó el test de cors", result);
         return reject(result);
