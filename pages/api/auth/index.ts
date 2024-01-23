@@ -1,14 +1,14 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { sendCode } from "../../../controllers/authControllers";
-// import { runMiddleware } from "../../../lib/corsMiddleware";
-import NextCors from "nextjs-cors";
-async function runMiddleware(req: NextApiRequest, res: NextApiResponse) {
-  await NextCors(req, res, {
-    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
-    origin: "*",
-    optionsSuccessStatus: 200,
-  });
-}
+import { runMiddleware } from "../../../lib/corsMiddleware";
+// import NextCors from "nextjs-cors";
+// async function runMiddleware(req: NextApiRequest, res: NextApiResponse) {
+//   await NextCors(req, res, {
+//     methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+//     origin: "*",
+//     optionsSuccessStatus: 200,
+//   });
+// }
 //Este endpoint se encarga de recibir un email desde el body y crear/encontrar un user. Devuelve el email y un código con fecha de expiración.
 export default async function auth(req: NextApiRequest, res: NextApiResponse) {
   //   console.log("arranca el endpoint");
