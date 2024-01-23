@@ -15,7 +15,7 @@ export function runMiddleware(req: NextApiRequest, res: NextApiResponse) {
         console.log("NO pasó el test de cors");
         return reject(result);
       }
-      console.log("Pasó el test de cors");
+      console.log("Pasó el test de cors", result);
       return resolve(result);
     });
   });

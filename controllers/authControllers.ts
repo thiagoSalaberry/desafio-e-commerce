@@ -4,18 +4,17 @@ import { addMinutes } from "date-fns";
 import { sendCodeEmail } from "../lib/brevo";
 import { generateToken } from "../lib/jwt";
 export async function findOrCreateAuth(email: string) {
-  const cleanEmail = email.trim().toLowerCase();
-  const auth: Auth = await Auth.findAuthByEmail(cleanEmail);
+  const auth: Auth = await Auth.findAuthByEmail(email);
   if (auth) {
     return auth;
   } else {
     const newUser: User = await User.createNewUser({
-      email: cleanEmail,
+      email,
       orders: [],
     });
     const newAuth: Auth = await Auth.createNewAuth({
       userId: newUser.id,
-      email: cleanEmail,
+      email,
       code: "",
       expiresAt: null,
     });
@@ -38,8 +37,7 @@ export async function sendCode(email: string) {
 }
 
 export async function checkEmailAndCode(email: string, code: number) {
-  const cleanEmail = email.trim().toLowerCase();
-  const auth = await Auth.checkEmailAndCode(cleanEmail, code);
+  const auth = await Auth.checkEmailAndCode(email, code);
   if (!auth) {
     return null;
   } else {
