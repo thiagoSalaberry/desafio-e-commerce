@@ -23,9 +23,9 @@ import NextCors from "nextjs-cors";
 // }
 
 export async function runMiddleware(req: NextApiRequest, res: NextApiResponse) {
-  // await NextCors(req, res, {
-  //   methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
-  //   origin: "*",
-  //   optionsSuccessStatus: 200,
-  // });
+  await NextCors(req, res, {
+    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+    origin: "*",
+    optionsSuccessStatus: 200,
+  });
 }

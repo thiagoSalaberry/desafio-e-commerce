@@ -1,5 +1,5 @@
-import {NextApiRequest, NextApiResponse} from "next";
-// import Cors from "cors";
+import { NextApiRequest, NextApiResponse } from "next";
+import Cors from "cors";
 // const cors = Cors({
 //     origin: "*",
 //     methods: ["GET","HEAD","PUT","PATCH","POST","DELETE"],
@@ -20,12 +20,12 @@ import {NextApiRequest, NextApiResponse} from "next";
 //         })
 //     })
 // }
-import {runMiddleware} from "../../../lib/corsMiddleware";
-export default async function(req:NextApiRequest, res:NextApiResponse) {
-    await runMiddleware(req, res);
-    res.json({
-        message: "Este es un endpoint protegido por CORS",
-        method: req.method,
-        body: req.body
-    });
+import { runMiddleware } from "../../../lib/corsMiddleware";
+export default async function (req: NextApiRequest, res: NextApiResponse) {
+  await runMiddleware(req, res);
+  res.json({
+    message: "Este es un endpoint protegido por CORS",
+    method: req.method,
+    body: req.body,
+  });
 }
