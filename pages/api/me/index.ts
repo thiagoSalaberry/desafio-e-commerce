@@ -2,7 +2,6 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { authMiddleware } from "../../../lib/authMiddleware";
 import { User } from "../../../model/user";
 import { updateUserData } from "../../../controllers/authControllers";
-import { runMiddleware } from "../../../lib/corsMiddleware";
 async function getRequest(
   req: NextApiRequest,
   res: NextApiResponse,

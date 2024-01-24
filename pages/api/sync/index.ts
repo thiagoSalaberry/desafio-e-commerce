@@ -2,7 +2,9 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { base } from "../../../lib/airtable";
 import { productsIndex } from "../../../lib/algolia";
 import { Product } from "../../../model/product";
-export default function (req: NextApiRequest, res: NextApiResponse) {
+import { runMiddleware } from "../../../lib/corsMiddleware";
+export default async function (req: NextApiRequest, res: NextApiResponse) {
+  await runMiddleware(req, res);
   base("Productos")
     .select({ pageSize: 10 })
     .eachPage(
@@ -15,12 +17,12 @@ export default function (req: NextApiRequest, res: NextApiResponse) {
         });
         const objetosParaFirestore = records.map((p) => {
           return {
-            ...p.fields
-          }
+            ...p.fields,
+          };
         });
-        objetosParaFirestore.forEach(async function(p:any) {
+        objetosParaFirestore.forEach(async function (p: any) {
           await Product.createNewProduct(p);
-        })
+        });
         await productsIndex.saveObjects(objetoParaAlgolia);
         console.log("siguiente página");
         fetchNextPage();
