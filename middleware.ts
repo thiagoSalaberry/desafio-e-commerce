@@ -13,7 +13,8 @@ export function middleware(req: Request) {
   if (
     /*regex.test(url)*/ url.includes(
       "https://desafio-e-commerce-five.vercel.app/api"
-    )
+    ) &&
+    regex.test(origin)
   ) {
     console.log(url);
     console.log(origin);

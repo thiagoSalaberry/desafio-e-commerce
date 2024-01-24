@@ -9,6 +9,8 @@ export default async function auth(
   request: Request
 ) {
   const { email } = req.body;
+  console.log("Este es el email que le llega al endpoint", email);
+  const origin = request.headers.get("origin");
   // await runMiddleware(req, res);
   if (!email) {
     res
@@ -22,7 +24,8 @@ export default async function auth(
   return new NextResponse(null, {
     headers: {
       "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Origin": origin || "*",
+      "Access-Control-Allow-Methods": "*",
     },
   });
 }
