@@ -3,6 +3,7 @@ import { checkEmailAndCode } from "../../../controllers/authControllers";
 import methods from "micro-method-router";
 import { runMiddleware } from "../../../lib/corsMiddleware";
 import Cors from "cors";
+import { NextResponse } from "next/server";
 const cors = Cors({
   methods: ["GET", "POST", "PATCH"],
 });
@@ -22,4 +23,10 @@ export default async function handler(
   if (!token)
     res.status(403).json({ message: "Los datos ingresados son incorrectos." });
   res.status(200).json(token);
+  return new NextResponse(null, {
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+  });
 }
