@@ -12,7 +12,7 @@ export default async function auth(
   console.log("Este es el email que le llega al endpoint", req.body.email);
   const origin = request.headers.get("origin");
   console.log("Este es el origin que le llega al endpoint", origin);
-  // await runMiddleware(req, res);
+  await runMiddleware(req, res);
   if (!email) {
     res
       .status(400)
@@ -22,11 +22,11 @@ export default async function auth(
   res.json({
     message: `Un código de ingreso fue enviado a ${email}.`,
   });
-  return new NextResponse(null, {
-    headers: {
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": origin || "*",
-      "Access-Control-Allow-Methods": "*",
-    },
-  });
+  // return new NextResponse(null, {
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     "Access-Control-Allow-Origin": origin || "*",
+  //     "Access-Control-Allow-Methods": "*",
+  //   },
+  // });
 }
