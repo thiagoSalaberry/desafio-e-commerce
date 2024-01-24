@@ -7,6 +7,7 @@ export function middleware(req: Request) {
   if (regex.test(url)) {
     console.log(url);
   } else {
+    console.log("esta es la url que supuestamente no pasa", url);
     console.log("No pasa el test");
   }
   return NextResponse.next();
