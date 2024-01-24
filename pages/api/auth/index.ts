@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { sendCode } from "../../../controllers/authControllers";
 import { runMiddleware } from "../../../lib/corsMiddleware";
+import { NextResponse } from "next/server";
 // import NextCors from "nextjs-cors";
 // async function runMiddleware(req: NextApiRequest, res: NextApiResponse) {
 //   await NextCors(req, res, {
@@ -10,7 +11,11 @@ import { runMiddleware } from "../../../lib/corsMiddleware";
 //   });
 // }
 //Este endpoint se encarga de recibir un email desde el body y crear/encontrar un user. Devuelve el email y un código con fecha de expiración.
-export default async function auth(req: NextApiRequest, res: NextApiResponse) {
+export default async function auth(
+  req: NextApiRequest,
+  res: NextApiResponse,
+  request: Request
+) {
   //   console.log("arranca el endpoint");
   const { email } = req.body;
   await runMiddleware(req, res);
@@ -22,5 +27,11 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
   await sendCode(email);
   res.json({
     message: `Un código de ingreso fue enviado a ${email}.`,
+  });
+  return new NextResponse(null, {
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
   });
 }
