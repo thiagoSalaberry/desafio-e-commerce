@@ -9,8 +9,9 @@ export default async function auth(
   request: Request
 ) {
   const { email } = req.body;
-  console.log("Este es el email que le llega al endpoint", email);
+  console.log("Este es el email que le llega al endpoint", req.body.email);
   const origin = request.headers.get("origin");
+  console.log("Este es el origin que le llega al endpoint", origin);
   // await runMiddleware(req, res);
   if (!email) {
     res
