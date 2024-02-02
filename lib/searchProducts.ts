@@ -7,7 +7,8 @@ type ResponseProductsProps = {
   stock: boolean;
   category: string;
   images: string[];
-  tags: string[];
+  rating: number;
+  reviews: number;
 };
 export async function searchProducts(q: string) {
   const searchedProduct = await productsIndex.search(q as string);
@@ -21,9 +22,10 @@ export async function searchProducts(q: string) {
         stock: prod.stock,
         category: prod.category,
         images: prod.images,
-        tags: prod.tags,
+        rating: prod.rating,
+        reviews: prod.reviews,
       };
     })
     .filter((prod: any) => prod.stock == "true");
   return responseProducts;
-};
+}
