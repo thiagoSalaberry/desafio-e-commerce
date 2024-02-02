@@ -4,7 +4,6 @@ import { runMiddleware } from "../../../lib/corsMiddleware";
 //Este endpoint se encarga de recibir un email desde el body y crear/encontrar un user. Devuelve el email y un código con fecha de expiración.
 export default async function auth(req: NextApiRequest, res: NextApiResponse) {
   const { email } = req.body;
-  console.log(email);
   await runMiddleware(req, res);
   if (!email) {
     res
