@@ -8,11 +8,13 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   await runMiddleware(req, res);
   const foundProducts = await searchProducts(String(q));
   const { offset, limit } = getLimitAndOffset(req, 10, foundProducts.length);
-  if (foundProducts.length == 0)
+  console.log(foundProducts);
+  /*if (foundProducts.length == 0) {
     res
       .status(404)
       .json({ message: "El producto que estás buscando no existe" });
-  res.status(200).json({
+  } else {
+    */ res.status(200).json({
     searchedProduct: q ? q : "Todos los productos",
     results: foundProducts.slice(offset, limit + offset),
     pagination: {
@@ -21,4 +23,5 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       total: foundProducts.length,
     },
   });
+  /*}*/
 }
