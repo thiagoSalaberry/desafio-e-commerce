@@ -11,6 +11,7 @@ export async function findOrCreateAuth(email: string) {
     const newUser: User = await User.createNewUser({
       email,
       orders: [],
+      cart: [],
     });
     const newAuth: Auth = await Auth.createNewAuth({
       userId: newUser.id,
