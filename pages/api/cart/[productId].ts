@@ -10,6 +10,7 @@ async function postRequest(
   verifiedToken
 ) {
   const { productId } = req.query;
+  await runMiddleware(req, res);
   const buyer: User = new User(verifiedToken.userId);
   await buyer.pull();
   const product = await Product.getProductById(String(productId));
@@ -25,6 +26,7 @@ async function deleteRequest(
   verifiedToken
 ) {
   const { productId } = req.query;
+  await runMiddleware(req, res);
   const buyer: User = new User(verifiedToken.userId);
   await buyer.pull();
   buyer.removeFromCart(String(productId));
