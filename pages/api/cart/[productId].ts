@@ -2,13 +2,9 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { authMiddleware } from "../../../lib/authMiddleware";
 import { User } from "../../../model/user";
 import { Product } from "../../../model/product";
-import {
-  createMerchantOrder,
-  createOrderRecord,
-} from "../../../controllers/orderController";
-import { createPreferenceBody } from "../../../lib/preferenceBody";
+import { runMiddleware } from "../../../lib/corsMiddleware";
 //Este endpoint se encarga de agregar productos al carrito
-async function handler(
+async function postRequest(
   req: NextApiRequest,
   res: NextApiResponse,
   verifiedToken
@@ -17,16 +13,38 @@ async function handler(
   const buyer: User = new User(verifiedToken.userId);
   await buyer.pull();
   const product = await Product.getProductById(String(productId));
-  // res.json({
-  //   productId,
-  //   buyer: buyer.data,
-  //   product,
-  // });
   buyer.addToCart(product);
   await buyer.push();
   res
     .status(200)
     .json({ message: "El producto fue agregado a tu carrito correctamente." });
+}
+async function deleteRequest(
+  req: NextApiRequest,
+  res: NextApiResponse,
+  verifiedToken
+) {
+  const { productId } = req.query;
+  const buyer: User = new User(verifiedToken.userId);
+  await buyer.pull();
+  buyer.removeFromCart(String(productId));
+  await buyer.push();
+  res.status(200).json({
+    message: `El producto con id ${productId} fue eliminado del carrito.`,
+  });
+}
+async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse,
+  verifiedToken
+) {
+  if (req.method == "POST") {
+    const addProductToCart = await postRequest(req, res, verifiedToken);
+    res.status(200).json({ addProductToCart });
+  } else if (req.method == "DELETE") {
+    const removeProductFromCart = await deleteRequest(req, res, verifiedToken);
+    res.status(200).json({ removeProductFromCart });
+  }
 }
 
 export default authMiddleware(handler);

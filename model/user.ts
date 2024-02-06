@@ -41,6 +41,14 @@ export class User {
   addToCart(product) {
     this.data.cart.push(product);
   }
+  removeFromCart(productId: string) {
+    const productToEliminate = this.data.cart.find(
+      (p) => p.productId === productId
+    );
+    if (productToEliminate) {
+      this.data.cart.splice(this.data.cart.indexOf(productToEliminate), 1);
+    }
+  }
   addOrder(order) {
     this.data.orders.push(order);
   }
