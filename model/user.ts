@@ -13,6 +13,7 @@ export type UserProps = {
   phone_number?: number;
   orders: any[];
   cart: any[];
+  bookmarks: any[];
 };
 
 const usersCollection = firestore.collection("users");
@@ -47,6 +48,20 @@ export class User {
     );
     if (productToEliminate) {
       this.data.cart.splice(this.data.cart.indexOf(productToEliminate), 1);
+    }
+  }
+  addToBookmarks(product) {
+    this.data.bookmarks.push(product);
+  }
+  removeFromBookmarks(productId: string) {
+    const productToEliminate = this.data.bookmarks.find(
+      (p) => p.productId === productId
+    );
+    if (productToEliminate) {
+      this.data.bookmarks.splice(
+        this.data.bookmarks.indexOf(productToEliminate),
+        1
+      );
     }
   }
   addOrder(order) {
