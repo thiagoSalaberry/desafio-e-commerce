@@ -31,7 +31,9 @@ async function handler(
   });
   if (newOrder) {
     const newMerchantOrder = await createMerchantOrder(preferenceBody);
-    res.status(201).json({ link: newMerchantOrder.init_point });
+    if (newMerchantOrder) {
+      res.status(201).json({ newMerchantOrder });
+    }
   }
 }
 
