@@ -14,9 +14,10 @@ async function postRequest(
   const buyer: User = new User(verifiedToken.userId);
   await buyer.pull();
   const product = await Product.getProductById(String(productId));
-  buyer.addToBookmarks(product);
+  const added = buyer.addToBookmarks(product);
+  if (!added) return { message: "El producto ya está guardado." };
   await buyer.push();
-  return { message: "El producto fue guardado correctamente." };
+  return true;
 }
 async function deleteRequest(
   req: NextApiRequest,
@@ -40,7 +41,11 @@ async function handler(
 ) {
   if (req.method == "POST") {
     const addProductToBookmarks = await postRequest(req, res, verifiedToken);
-    res.status(200).json(addProductToBookmarks);
+    if (!addProductToBookmarks) {
+      res.status(409).json({ message: "El producto ya está guardado" });
+    } else {
+      res.status(200).json(addProductToBookmarks);
+    }
   } else if (req.method == "DELETE") {
     const removeProductFromBookmarks = await deleteRequest(
       req,

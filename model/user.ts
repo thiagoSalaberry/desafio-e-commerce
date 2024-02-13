@@ -51,7 +51,15 @@ export class User {
     }
   }
   addToBookmarks(product) {
-    this.data.bookmarks.push(product);
+    const alreadyBookmarked = this.data.bookmarks.find(
+      (p) => p.productId === product.productId
+    );
+    if (!alreadyBookmarked) {
+      this.data.bookmarks.push(product);
+      return true;
+    } else {
+      return false;
+    }
   }
   removeFromBookmarks(productId: string) {
     const productToEliminate = this.data.bookmarks.find(
