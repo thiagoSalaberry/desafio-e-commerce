@@ -2,11 +2,11 @@ import admin from "firebase-admin";
 
 const serviceAccount = JSON.parse(process.env.FIRESTORE_CONNECTION);
 
-if (admin.app.length == 0) {
-  admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-  });
-}
+// if (admin.app.length == 0) {
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
+// }
 
 const firestore = admin.firestore();
 
