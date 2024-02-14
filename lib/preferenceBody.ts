@@ -37,6 +37,6 @@ export function createPreferenceBody(params: PreferenceProps): object {
       address: params.address,
     },
     external_reference: params.external_reference,
-    notification_url: process.env.NOTIFICATION_URL,
+    notification_url: process.env.MY_NOTIFICATION_URL,
   };
 }
