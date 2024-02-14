@@ -10,34 +10,34 @@ export type OrderProps = {
     street_number: number;
     zip_code: number;
   };
-  productData: object;
+  productData: object | object[];
 };
 
 export class Order {
   ref: FirebaseFirestore.DocumentReference;
   data: any;
   id: string;
-  constructor(id:string) {
-      this.id = id;
-      this.ref = orderCollection.doc(id);
-  };
+  constructor(id: string) {
+    this.id = id;
+    this.ref = orderCollection.doc(id);
+  }
   async pull() {
-      const doc = await this.ref.get();
-      this.data = doc.data();
-  };
+    const doc = await this.ref.get();
+    this.data = doc.data();
+  }
   async push() {
-      this.ref.update(this.data)
-  };
-  static async createNewOrder(data:OrderProps) {
-      const newOrderSnap = await orderCollection.add(data);
-      const newOrder = new Order(newOrderSnap.id);
-      newOrder.data = data;
-      return newOrder;
-  };
-  static async getOrderById(orderId:string) {
-      const orderDoc = await orderCollection.doc(orderId).get();
-      const newOrder = new Order(orderDoc.id);
-      newOrder.data = orderDoc.data();
-      return newOrder as Order;
+    this.ref.update(this.data);
+  }
+  static async createNewOrder(data: OrderProps) {
+    const newOrderSnap = await orderCollection.add(data);
+    const newOrder = new Order(newOrderSnap.id);
+    newOrder.data = data;
+    return newOrder;
+  }
+  static async getOrderById(orderId: string) {
+    const orderDoc = await orderCollection.doc(orderId).get();
+    const newOrder = new Order(orderDoc.id);
+    newOrder.data = orderDoc.data();
+    return newOrder as Order;
   }
 }

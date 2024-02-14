@@ -1,14 +1,12 @@
 type ItemProps = {
-  item: {
-    id: string;
-    title: string;
-    description: string;
-    picture_url: "http://www.myapp.com/myimage.jpg";
-    category_id: string;
-    quantity: number;
-    currency_id: "ARS";
-    unit_price: number;
-  };
+  id: string;
+  title: string;
+  description: string;
+  picture_url: string;
+  category_id: string;
+  quantity: number;
+  currency_id: string;
+  unit_price: number;
 };
 type PreferenceProps = {
   items: ItemProps[];

@@ -13,36 +13,38 @@ async function handler(
   res: NextApiResponse,
   verifiedToken
 ) {
-  const { items } = req.query;
   const { shipping_info } = req.body;
-  const promises = String(items)
-    .split(",")
-    .map(async (p) => {
-      return await Product.getProductById(p);
-    });
-  const products = await Promise.all(promises);
   const buyer: User = new User(verifiedToken.userId);
   await buyer.pull();
-  //   const product = await Product.getProductById(String(productIds));
-  //   const newOrder = await createOrderRecord({
-  //     userId: buyer.id,
-  //     productData: product,
-  //     shipping_info,
-  //     status: "pending",
-  //   });
-  //   const preferenceBody = createPreferenceBody({
-  //     items: [{ ...newOrder.data.productData, id: productIds, quantity: 1 }],
-  //     address: shipping_info,
-  //     external_reference: newOrder.id,
-  //   });
-  //   if (newOrder) {
-  //     const newMerchantOrder = await createMerchantOrder(preferenceBody);
-  //     if (newMerchantOrder) {
-  //       //
-  //       res.status(201).json({ link: newMerchantOrder.init_point });
-  //     }
-  //   }
-  res.json({ products, cart: buyer.data.cart });
+  const newOrder = await createOrderRecord({
+    userId: buyer.id,
+    productData: buyer.data.cart,
+    shipping_info,
+    status: "pending",
+  });
+  const items = buyer.data.cart.map((prod) => {
+    return {
+      id: String(prod.productId),
+      title: String(prod.title),
+      description: String(prod.description),
+      picture_url: "http://www.myapp.com/myimage.jpg",
+      category_id: String(prod.category),
+      quantity: Number(prod.quantity),
+      currency_id: "ARS",
+      unit_price: Number(prod.unit_price),
+    };
+  });
+  const preferenceBody = createPreferenceBody({
+    items: items,
+    address: shipping_info,
+    external_reference: newOrder.id,
+  });
+  if (newOrder) {
+    const newMerchantOrder = await createMerchantOrder(preferenceBody);
+    if (newMerchantOrder) {
+      res.status(201).json({ link: newMerchantOrder.init_point });
+    }
+  }
 }
 
 export default authMiddleware(handler);
