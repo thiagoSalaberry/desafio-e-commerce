@@ -25,7 +25,7 @@ async function handler(
     status: "pending",
   });
   const preferenceBody = createPreferenceBody({
-    product: { ...newOrder.data.productData, id: productId },
+    items: [{ ...newOrder.data.productData, id: productId, quantity: 1 }],
     address: shipping_info,
     external_reference: newOrder.id,
   });
@@ -33,7 +33,7 @@ async function handler(
     const newMerchantOrder = await createMerchantOrder(preferenceBody);
     if (newMerchantOrder) {
       //
-      res.status(201).json({ newMerchantOrder });
+      res.status(201).json({ link: newMerchantOrder.init_point });
     }
   }
 }
