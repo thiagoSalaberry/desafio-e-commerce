@@ -40,13 +40,24 @@ export class User {
     return newUser;
   }
   addToCart(product) {
-    this.data.cart.push(product);
+    const alreadyInCart = this.data.cart.find(
+      (p) => p.productId === product.productId
+    );
+    if (!alreadyInCart) {
+      this.data.cart.push({ ...product, quantity: 1 });
+      return true;
+    } else {
+      alreadyInCart.quantity++;
+      return false;
+    }
   }
   removeFromCart(productId: string) {
     const productToEliminate = this.data.cart.find(
       (p) => p.productId === productId
     );
-    if (productToEliminate) {
+    if (productToEliminate && productToEliminate.quantity > 1) {
+      productToEliminate.quantity--;
+    } else {
       this.data.cart.splice(this.data.cart.indexOf(productToEliminate), 1);
     }
   }
