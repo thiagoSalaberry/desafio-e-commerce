@@ -33,7 +33,10 @@ async function handler(
     const newMerchantOrder = await createMerchantOrder(preferenceBody);
     if (newMerchantOrder) {
       //
-      res.status(201).json({ link: newMerchantOrder.init_point });
+      res.status(201).json({
+        link: newMerchantOrder.init_point,
+        orderId: newMerchantOrder.external_reference,
+      });
     }
   }
 }
